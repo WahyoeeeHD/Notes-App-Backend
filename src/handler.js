@@ -95,7 +95,7 @@ const editNoteByIdHandler = (request, h) => {
 
   const response = h.response({
     status: "fail",
-    message: "Catatan gagal untuk diperbaharui",
+    message: "Catatan gagal untuk diperbarui",
   });
   response.code(404);
   return response;
