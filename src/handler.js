@@ -1,5 +1,6 @@
-const { nanoid } = require("nanoid");
-const notes = require("./notes");
+/* eslint-disable no-undef */
+const { nanoid } = require('nanoid');
+const notes = require('./notes');
 
 const addNoteHandler = (request, h) => {
   const { title, tags, body } = request.payload;
@@ -22,8 +23,8 @@ const addNoteHandler = (request, h) => {
 
   if (isSuccess) {
     const response = h.response({
-      status: "success",
-      message: "Catatan telah berhasil ditambahkan",
+      status: 'success',
+      message: 'Catatan telah berhasil ditambahkan',
       data: {
         noteId: id,
       },
@@ -33,15 +34,15 @@ const addNoteHandler = (request, h) => {
   }
 
   const response = h.response({
-    status: "fail",
-    message: "Catatan gagal ditambahkan",
+    status: 'fail',
+    message: 'Catatan gagal ditambahkan',
   });
   response.code(500);
   return response;
 };
 
 const getAllNotesHandler = () => ({
-  status: "success",
+  status: 'success',
   data: {
     notes,
   },
@@ -54,7 +55,7 @@ const getNoteByIdHandler = (request, h) => {
 
   if (note !== undefined) {
     return {
-      status: "success",
+      status: 'success',
       data: {
         note,
       },
@@ -62,8 +63,8 @@ const getNoteByIdHandler = (request, h) => {
   }
 
   const response = h.response({
-    status: "fail",
-    message: "Catatan tidak ditemukan",
+    status: 'fail',
+    message: 'Catatan tidak ditemukan',
   });
   response.code(404);
   return response;
@@ -86,42 +87,42 @@ const editNoteByIdHandler = (request, h) => {
     };
 
     const response = h.response({
-      status: "success",
-      message: "Catatan berhasil diperbarui",
+      status: 'success',
+      message: 'Catatan berhasil diperbarui',
     });
     response.code(200);
     return response;
   }
 
   const response = h.response({
-    status: "fail",
-    message: "Catatan gagal untuk diperbarui",
+    status: 'fail',
+    message: 'Catatan gagal untuk diperbarui',
   });
   response.code(404);
   return response;
 };
 
 const deleteNoteByIdHandler = (request, h) => {
-    const { id } = request.params;
-    const index = notes.findIndex((note) => note.id === id);
+  const { id } = request.params;
+  const index = notes.findIndex((note) => note.id === id);
 
-    if(index !== -1){
-        notes.splice(index, 1);
-        const response = h.response({
-            status: 'success',
-            message: 'Catatan telah berhasil dihapus!',
-        });
-        response.code(200);
-        return response;
-    };
-
+  if (index !== -1) {
+    notes.splice(index, 1);
     const response = h.response({
-        status: 'fail',
-        message: 'Catatan gagal dihapus, id tidak ditemukan',
+      status: 'success',
+      message: 'Catatan telah berhasil dihapus!',
     });
-    response.code(404);
+    response.code(200);
     return response;
-};  
+  }
+
+  const response = h.response({
+    status: 'fail',
+    message: 'Catatan gagal dihapus, id tidak ditemukan',
+  });
+  response.code(404);
+  return response;
+};
 
 module.exports = {
   addNoteHandler,
